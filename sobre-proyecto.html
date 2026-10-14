@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explicación sencilla de cómo se hizo PokeConsultas.">
+  <title>Cómo se hizo PokeConsultas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/presentacion.css">
+</head>
+<body class="project-explanation">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Volver a PokeConsultas">
+      <img class="brand-icon" src="images/Poke_Ball.webp" alt="">
+      <span>PokeConsultas</span>
+    </a>
+  </header>
+
+  <main class="project-page">
+    <nav class="project-nav" aria-label="Navegación del proyecto">
+      <a href="index.html">Volver al inicio</a>
+    </nav>
+
+    <article>
+      <h1>Cómo se hizo PokeConsultas</h1>
+      <p class="project-intro">La página se construyó con HTML para organizar el contenido, CSS para darle estilo y JavaScript para consultar PokéAPI y mostrar los resultados.</p>
+
+      <nav class="project-index" aria-label="Contenido de la presentación">
+        <h2>Contenido</h2>
+        <ul>
+          <li><a href="#html">La estructura HTML</a></li>
+          <li><a href="#css">El diseño CSS</a></li>
+          <li><a href="#javascript">JavaScript y la búsqueda</a></li>
+          <li><a href="#api">La conexión con PokéAPI</a></li>
+          <li><a href="#ficha">Cómo se construye la ficha</a></li>
+        </ul>
+      </nav>
+
+      <section id="html" class="project-section">
+        <h2>La estructura HTML</h2>
+        <p>El HTML organiza lo que ve el usuario. La cabecera contiene el logo y el nombre; el formulario permite escribir una búsqueda, y la tarjeta queda preparada para recibir los datos del Pokémon.</p>
+        <pre><code>&lt;form id="search-form"&gt;
+  &lt;input id="pokemon-search" type="search"&gt;
+  &lt;button type="submit"&gt;Buscar Pokémon&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;article id="pokemon-card" hidden&gt;
+  &lt;h2 id="pokemon-name"&gt;&lt;/h2&gt;
+  &lt;div id="pokemon-stats"&gt;&lt;/div&gt;
+&lt;/article&gt;</code></pre>
+        <p>Los <code>id</code> permiten que JavaScript encuentre los elementos que necesita actualizar. El atributo <code>hidden</code> oculta la ficha hasta que hay un resultado.</p>
+      </section>
+
+      <section id="css" class="project-section">
+        <h2>El diseño CSS</h2>
+        <p>El archivo <code>css/styles.css</code> define colores, tamaños, espacios y distribución. Por ejemplo, Flexbox coloca el campo de búsqueda y el botón uno al lado del otro.</p>
+        <pre><code>.search-row {
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 650px) {
+  .search-row {
+    flex-direction: column;
+  }
+}</code></pre>
+        <p>La regla <code>@media</code> adapta el formulario a pantallas pequeñas para que los controles se acomoden verticalmente en un celular.</p>
+      </section>
+
+      <section id="javascript" class="project-section">
+        <h2>JavaScript y la búsqueda</h2>
+        <p>JavaScript espera que se envíe el formulario. Luego pide los datos, muestra el resultado y actualiza el mensaje si algo falla.</p>
+        <pre><code>formulario.addEventListener("submit", async evento =&gt; {
+  evento.preventDefault();
+  const pokemon = await consultarPokemon(campoBusqueda.value);
+  mostrarPokemon(pokemon);
+});</code></pre>
+        <table>
+          <thead>
+            <tr><th>Herramienta</th><th>Uso en la página</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>querySelector</code></td><td>Encuentra elementos del HTML.</td></tr>
+            <tr><td><code>addEventListener</code></td><td>Detecta el envío del formulario.</td></tr>
+            <tr><td><code>async / await</code></td><td>Espera la respuesta de la API.</td></tr>
+            <tr><td><code>createElement</code></td><td>Crea las etiquetas de tipos y estadísticas.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="api" class="project-section">
+        <h2>La conexión con PokéAPI</h2>
+        <p>La función <code>consultarPokemon</code> está en <code>js/app.js</code>, junto al resto del JavaScript. Usa <code>fetch</code> para pedir información a PokéAPI por número o nombre.</p>
+        <pre><code>const respuesta = await fetch(
+  `https://pokeapi.co/api/v2/pokemon/${termino}`
+);</code></pre>
+        <p>También se consulta la especie para obtener el nombre en español. Después se revisa que el número esté entre el 252 y el 386. Si la petición falla o el Pokémon está fuera del rango, se muestra un mensaje en vez de una ficha.</p>
+      </section>
+
+      <section id="ficha" class="project-section">
+        <h2>Cómo se construye la ficha del Pokémon</h2>
+        <p>Cuando PokéAPI responde, la función <code>consultarPokemon</code> organiza los datos que necesita la página: número, nombre, imagen, tipos, habilidades, altura, peso y estadísticas base.</p>
+        <p>La función <code>mostrarPokemon</code> coloca los valores de texto en los espacios preparados en el HTML. Para la imagen, cambia el atributo <code>src</code> y añade un texto alternativo con el nombre del Pokémon.</p>
+        <p>Los tipos y las estadísticas pueden variar en cantidad y valor, por eso JavaScript los crea al recibir los datos. Primero limpia los resultados anteriores y luego agrega los nuevos elementos:</p>
+        <pre><code>tipos.replaceChildren();
+pokemon.tipos.forEach(tipo =&gt; {
+  const etiqueta = document.createElement("span");
+  etiqueta.textContent = tipo;
+  tipos.append(etiqueta);
+});</code></pre>
+        <p>Las estadísticas se muestran con su nombre, su valor y una barra visual. La anchura de la barra se calcula comparando el valor con 255. La altura y el peso se dividen por 10 para convertir las medidas de PokéAPI a metros y kilogramos. Al final se quita <code>hidden</code> para mostrar la ficha completa.</p>
+      </section>
+
+      <aside class="project-summary">
+        <h2>En resumen</h2>
+        <p>HTML organiza la página, CSS controla su apariencia y JavaScript consulta PokéAPI para mostrar la información. Los archivos están separados en las carpetas <code>css</code>, <code>images</code> y <code>js</code>.</p>
+      </aside>
+    </article>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Volver a PokeConsultas</a></p>
+  </footer>
+</body>
+</html>

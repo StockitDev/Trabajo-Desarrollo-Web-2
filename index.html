@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Consulta los Pokémon de la tercera generación.">
+  <title>PokeConsultas</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="PokeConsultas, inicio">
+      <img class="brand-icon" src="images/Poke_Ball.webp" alt="">
+      <span>PokeConsultas</span>
+    </a>
+    <span class="generation-label">TERCERA GENERACIÓN · #252–#386</span>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <h1 id="page-title">PokeConsultas</h1>
+      <p>Busca un Pokémon por nombre o número.</p>
+    </section>
+
+    <section id="consultation" class="consultation" aria-labelledby="search-title">
+      <form id="search-form">
+        <label for="pokemon-search" id="search-title">¿A quién quieres consultar?</label>
+        <div class="search-row">
+          <input
+            id="pokemon-search"
+            name="pokemon"
+            type="search"
+            placeholder="Ejemplo: 258 o mudkip"
+            autocomplete="off"
+            required
+          >
+          <button type="submit" id="search-button">Buscar Pokémon</button>
+        </div>
+      </form>
+
+      <p id="status-message" class="status-message" role="status" aria-live="polite">
+        Busca por nombre en inglés o número de Pokédex.
+      </p>
+
+      <article id="pokemon-card" class="pokemon-card" hidden aria-live="polite">
+        <div class="pokemon-art">
+          <span id="pokemon-number" class="pokemon-number"></span>
+          <img id="pokemon-image" src="" alt="">
+        </div>
+        <div class="pokemon-info">
+          <p class="eyebrow">FICHA DEL POKÉMON</p>
+          <h2 id="pokemon-name"></h2>
+          <div id="pokemon-types" class="type-list" aria-label="Tipos"></div>
+          <div class="measurements">
+            <p><span>Altura</span><strong id="pokemon-height"></strong></p>
+            <p><span>Peso</span><strong id="pokemon-weight"></strong></p>
+            <p><span>Habilidades</span><strong id="pokemon-abilities"></strong></p>
+          </div>
+          <h3>Estadísticas base</h3>
+          <div id="pokemon-stats" class="stats-list"></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Datos: <a href="https://pokeapi.co/" target="_blank" rel="noopener noreferrer">PokéAPI</a></p>
+    <p><a href="sobre-proyecto.html">Cómo se hizo esta página</a></p>
+  </footer>
+</body>
+</html>
