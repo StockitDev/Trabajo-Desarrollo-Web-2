@@ -89,6 +89,18 @@
   const pokemon = await consultarPokemon(campoBusqueda.value);
   mostrarPokemon(pokemon);
 });</code></pre>
+        <h3>Funciones del proyecto</h3>
+        <table>
+          <thead>
+            <tr><th>Función</th><th>Para qué sirve</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>consultarPokemon(busqueda)</code></td><td>Valida lo escrito, consulta PokéAPI y devuelve los datos del Pokémon organizados para mostrarlos.</td></tr>
+            <tr><td><code>crearEstadistica(estadistica)</code></td><td>Crea la fila visual de una estadística, con su nombre, valor y barra de progreso.</td></tr>
+            <tr><td><code>mostrarPokemon(pokemon)</code></td><td>Actualiza la ficha con el nombre, imagen, tipos, habilidades, medidas y estadísticas del Pokémon.</td></tr>
+            <tr><td>Manejador del evento <code>submit</code></td><td>Evita que se recargue la página, inicia la búsqueda, muestra el resultado o el error y vuelve a habilitar el botón.</td></tr>
+          </tbody>
+        </table>
         <table>
           <thead>
             <tr><th>Herramienta</th><th>Uso en la página</th></tr>
