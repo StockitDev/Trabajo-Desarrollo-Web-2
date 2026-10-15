@@ -28,16 +28,16 @@
       <nav class="project-index" aria-label="Contenido de la presentación">
         <h2>Contenido</h2>
         <ul>
-          <li><a href="#html">La estructura HTML</a></li>
-          <li><a href="#css">El diseño CSS</a></li>
-          <li><a href="#javascript">JavaScript y la búsqueda</a></li>
-          <li><a href="#api">La conexión con PokéAPI</a></li>
-          <li><a href="#ficha">Cómo se construye la ficha</a></li>
+          <li><a href="#html">HTML</a></li>
+          <li><a href="#css">CSS</a></li>
+          <li><a href="#javascript">JavaScript</a></li>
+          <li><a href="#api">PokéAPI</a></li>
+          <li><a href="#ficha">La ficha</a></li>
         </ul>
       </nav>
 
       <section id="html" class="project-section">
-        <h2>La estructura HTML</h2>
+        <h2>HTML</h2>
         <p>El HTML organiza lo que ve el usuario. La cabecera contiene el logo y el nombre; el formulario permite escribir una búsqueda, y la tarjeta queda preparada para recibir los datos del Pokémon.</p>
         <pre><code>&lt;form id="search-form"&gt;
   &lt;input id="pokemon-search" type="search"&gt;
@@ -49,10 +49,24 @@
   &lt;div id="pokemon-stats"&gt;&lt;/div&gt;
 &lt;/article&gt;</code></pre>
         <p>Los <code>id</code> permiten que JavaScript encuentre los elementos que necesita actualizar. El atributo <code>hidden</code> oculta la ficha hasta que hay un resultado.</p>
+        <table>
+          <thead>
+            <tr><th>Etiqueta</th><th>Uso en la página</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>header</code>, <code>main</code>, <code>footer</code></td><td>Separan la cabecera, el contenido principal y el pie de página.</td></tr>
+            <tr><td><code>nav</code></td><td>Agrupa los enlaces para volver al inicio y recorrer la presentación.</td></tr>
+            <tr><td><code>section</code></td><td>Organiza el contenido en apartados, como la búsqueda y las secciones de esta explicación.</td></tr>
+            <tr><td><code>article</code></td><td>Representa la ficha independiente del Pokémon y el contenido de esta presentación.</td></tr>
+            <tr><td><code>form</code>, <code>label</code>, <code>input</code>, <code>button</code></td><td>Forman el buscador: identifican el campo, permiten escribir y envían la consulta.</td></tr>
+            <tr><td><code>aside</code></td><td>Presenta el resumen complementario de la explicación.</td></tr>
+            <tr><td><code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tr</code>, <code>th</code>, <code>td</code></td><td>Organizan en filas y columnas las herramientas y etiquetas con su uso.</td></tr>
+          </tbody>
+        </table>
       </section>
 
       <section id="css" class="project-section">
-        <h2>El diseño CSS</h2>
+        <h2>CSS</h2>
         <p>El archivo <code>css/styles.css</code> define colores, tamaños, espacios y distribución. Por ejemplo, Flexbox coloca el campo de búsqueda y el botón uno al lado del otro.</p>
         <pre><code>.search-row {
   display: flex;
@@ -68,7 +82,7 @@
       </section>
 
       <section id="javascript" class="project-section">
-        <h2>JavaScript y la búsqueda</h2>
+        <h2>JavaScript</h2>
         <p>JavaScript espera que se envíe el formulario. Luego pide los datos, muestra el resultado y actualiza el mensaje si algo falla.</p>
         <pre><code>formulario.addEventListener("submit", async evento =&gt; {
   evento.preventDefault();
@@ -89,7 +103,7 @@
       </section>
 
       <section id="api" class="project-section">
-        <h2>La conexión con PokéAPI</h2>
+        <h2>PokéAPI</h2>
         <p>La función <code>consultarPokemon</code> está en <code>js/app.js</code>, junto al resto del JavaScript. Usa <code>fetch</code> para pedir información a PokéAPI por número o nombre.</p>
         <pre><code>const respuesta = await fetch(
   `https://pokeapi.co/api/v2/pokemon/${termino}`
@@ -98,7 +112,7 @@
       </section>
 
       <section id="ficha" class="project-section">
-        <h2>Cómo se construye la ficha del Pokémon</h2>
+        <h2>La ficha</h2>
         <p>Cuando PokéAPI responde, la función <code>consultarPokemon</code> organiza los datos que necesita la página: número, nombre, imagen, tipos, habilidades, altura, peso y estadísticas base.</p>
         <p>La función <code>mostrarPokemon</code> coloca los valores de texto en los espacios preparados en el HTML. Para la imagen, cambia el atributo <code>src</code> y añade un texto alternativo con el nombre del Pokémon.</p>
         <p>Los tipos y las estadísticas pueden variar en cantidad y valor, por eso JavaScript los crea al recibir los datos. Primero limpia los resultados anteriores y luego agrega los nuevos elementos:</p>
